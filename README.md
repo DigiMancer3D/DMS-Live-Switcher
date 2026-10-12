@@ -6,8 +6,7 @@ DMS Live Switcher provides two horizontally scrollable button rails: one for swi
 
 > **Release:** `v0.1.0-alpha.1-r1` (public preview)  
 > **Platform:** Linux desktop; developed for CachyOS / KDE Plasma 6  
-> **Runtime:** Python 3 and Tkinter; no network service or account required  
-> **Status:** The maintainer has reported successful launch through Streamer Board Console and successful control of both target applications. Compatibility with other versions and setups is not guaranteed.
+> **Runtime:** Python 3 and Tkinter; no network service or account required 
 
 ## Features
 
@@ -85,8 +84,6 @@ The Streamer Board Console application manager can launch and monitor DMS Live S
 
 **Important:** Use `$HOME/Applications/DMS_Live_Switcher`, **not** the download/extraction directory. If a previously registered template points to a former location, **edit the existing template path** instead of adding a duplicate.
 
-See [`docs/STREAMER_BOARD_CONSOLE_REGISTRATION.md`](docs/STREAMER_BOARD_CONSOLE_REGISTRATION.md) for troubleshooting.
-
 ## Connect pinboards and deckcards (bridges)
 
 **Desktop/App registration does not install the live-control bridges.** The pinboard path uses Streamer Board Console's native `swap_state` action where available; the Deck Card Widget requires a small in-process bridge. Both original programs keep ownership of their output windows.
@@ -156,21 +153,6 @@ For integration verification with the actual apps use `bash verify.sh --sbc ... 
 - No analytics, login, or cloud sync is implemented. The app uses local filesystem commands/status, intended for the same trusted desktop account.
 - Only load `.sboard`/`.buttstore` files you trust, and test compatibility off-air before using it in a production show.
 
-## Project organization
-
-```text
-DMS-Live-Switcher/
-├── README.md
-├── dms_live_switcher.py       # Tk control panel
-├── switch_core.py             # File protocol and color logic
-├── dms_live_deck_bridge.py    # Deck Card Widget integration
-├── run.sh
-├── verify.sh
-├── assets/                    # Desktop icons
-├── scripts/                   # Desktop + bridge installers
-├── docs/                      # Integration, safety and compatibility
-└── tests/                     # Automated checks
-```
 
 ## Related projects
 
