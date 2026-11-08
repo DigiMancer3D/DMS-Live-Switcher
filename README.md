@@ -15,7 +15,7 @@
 
 ## What it does
 
-**DMS Live Switcher** brings the repetitive switching work of a live production into one local interface. It coordinates saved **Deck Card Widget** collections (`.buttstore`), **Streamer Board & Console** pinboards (`.sboard`) and pre-show sequencing. The November 2026 alpha series also integrates with **Field Guide Forge (FGF)**, so changing the presenter page can select the corresponding studio output.
+**DMS Live Switcher** brings the repetitive switching work of a live production into one local interface. It coordinates saved **Deck Card Widget** collections (`.buttstore`), **Streamer Board & Console** pinboards (`.sboard`) and pre-show sequencing. This alpha series also integrates with **Field Guide Forge (FGF)**, so changing the presenter page can select the corresponding studio output.
 
 > [!NOTE]
 > DMS is a control layer, not a replacement for Deck Card Widget or Streamer Board & Console. The target applications keep ownership of their own assets and output windows.
@@ -39,7 +39,7 @@ The **Change Display** button reads back the *confirmed* live state rather than 
 
 ### Pre-Show and custom timing
 
-DMS provides a production board for handling repeatable segments (including partnership and sponsorship arrangements, catch-up segments, endings and credits). Existing pre-show row editing and timing options are designed to work alongside manual controls—use manual overrides when an unexpected live moment requires it.
+DMS provides a production board for handling repeatable segments (including partnership and sponsorship arrangements, catch-up segments, endings and credits). Existing pre-show row editing and timing options are designed to work alongside manual controls, use manual overrides when an unexpected live moment requires it.
 
 ## Quick start
 
