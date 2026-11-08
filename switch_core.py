@@ -81,7 +81,15 @@ def read_buttstore(path: Path):
     cards = data.get('body', {}).get('cards', [])
     if not isinstance(cards, list):
         raise ValueError('No card list in .buttstore')
-    return [{'id':str(c.get('id','')), 'label':str(c.get('label',c.get('id','Card'))), 'color':card_color(c)} for c in cards if isinstance(c,dict) and c.get('id')]
+    return [{'id':str(c.get('id','')),
+             'label':str(c.get('label',c.get('id','Card'))),
+             'color':card_color(c),
+             # Keep the actual card classification. Titles are not required to
+             # include the words Partner or Sponsor (e.g. 'Beyond-The-Block').
+             'border_type':str(c.get('deck_border_type') or '').upper().strip(),
+             'source_type':str((c.get('fields') or {}).get('sourceType') or '')
+             if isinstance(c.get('fields'),dict) else ''}
+            for c in cards if isinstance(c,dict) and c.get('id')]
 
 
 def discover_sbc(explicit: str = ''):
@@ -135,3 +143,29 @@ def safe_path(path: str, suffix: str):
     if p.suffix.lower()!=suffix or not p.is_file():
         raise ValueError(f'Expected an existing {suffix} file: {p}')
     return p
+
+
+def enrich_deck_refs(entries):
+    """Upgrade legacy state refs with file-backed metadata, without changing order.
+
+    An unavailable/moved ButtStore is *not* discarded.  Cache each source read
+    once so large shows do not repeatedly parse the same ButtStore.
+    """
+    by_source = {}
+    upgraded = []
+    for entry in entries:
+        row = dict(entry)
+        source = row.get('source', '')
+        if source not in by_source:
+            try:
+                by_source[source] = {c['id']: c for c in read_buttstore(Path(source))}
+            except (ValueError, TypeError, OSError):
+                by_source[source] = {}
+        latest = by_source[source].get(str(row.get('id','')),{})
+        if latest:
+            # Preserve DMS aliases, colors, and load positions; only refresh
+            # data classifications that come from the source file.
+            row['border_type'] = latest.get('border_type','')
+            row['source_type'] = latest.get('source_type','')
+        upgraded.append(row)
+    return upgraded
